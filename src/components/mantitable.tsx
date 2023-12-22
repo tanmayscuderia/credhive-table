@@ -41,15 +41,6 @@ const MantineTable: React.FC<Props> = ({ tableData, tableConfig }) => {
     }
   }, [sorting]);
 
-
-  const printData = () => {
-    console.log('hi');
-    setTimeout(() => {
-      setChartData(chartDataSelector);
-      console.log('fghs', newChartData);
-    }, 2000);
-  }
-
   const table = useMantineReactTable({
     columns,
     data,

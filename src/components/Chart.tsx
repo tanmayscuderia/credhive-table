@@ -80,7 +80,7 @@ function Bars({ data, height, scaleX, scaleY }: BarsProps) {
 
 export function BarChart({ data, refDimensions, selectedRow }: BarChartProps) {
   console.log('e', selectedRow);
-  const margin = { top: 50, right: 30, bottom: 50, left: 30 };
+  const margin = { top: 50, right: 50, bottom: 50, left: 50 };
   const width = refDimensions.containerWidth - margin.left - margin.right;
   const height = refDimensions.containerHeight - margin.top - margin.bottom;
 

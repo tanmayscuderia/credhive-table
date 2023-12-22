@@ -11,8 +11,9 @@ h1 {
 
 .page-container {
   display: flex;
-  justify-content: space-between;
   gap: 20px;
+  justify-content: space-between;
+  margin: 10px;
   overflow-x: hidden;
 }
 
@@ -35,7 +36,6 @@ h1 {
 
   .chart-container, .table-container {
     width: 95vw;
-    margin: 10px;
   }
 
   .chart-container {
