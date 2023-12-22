@@ -1,38 +1,44 @@
-.App {
-  text-align: center;
+html {
+  overflow-x: hidden;
+  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1 {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  width: 100vw;
 }
 
-.App-link {
-  color: #61dafb;
+.page-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  overflow-x: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.chart-container {
+  width: 50vw;
+  height: calc(100vh - 98px);
+  border: 0.0625rem solid #dee2e6;
+  border-radius: 12px;
+}
+
+.table-container {
+  width: 50vw;
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 900px) {
+  .page-container {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  .chart-container, .table-container {
+    width: 95vw;
+    margin: 10px;
+  }
+
+  .chart-container {
+    height: calc(100vh - 350px);
   }
 }
