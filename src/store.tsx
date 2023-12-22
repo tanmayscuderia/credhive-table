@@ -2,7 +2,7 @@ import { createStore } from 'redux';
 import {
   type MRT_ColumnDef,
 } from 'mantine-react-table';
-const { faker } = require('@faker-js/faker');
+import { faker } from '@faker-js/faker';
 
 /**
  * The initial state of the application.
@@ -119,22 +119,26 @@ store.dispatch({ type: 'COMPANY_TABLE_COLUMN_CONFIG', payload: columnsConfig });
  * @param numberOfRows - The number of rows of data to generate.
  * @returns An array of generated company data.
  */
-export const createCompanyData = (numberOfRows: number): CompanyType[] =>
-  [...Array(numberOfRows).fill(null)].map(() => ({
+export const createCompanyData = (numberOfRows: number): CompanyType[] => {
+  const formatCurrency = (amount: number) =>
+    amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+
+  return Array.from({ length: numberOfRows }, () => ({
     companyName: faker.company.name(),
     address: faker.address.streetAddress(),
     registrationDate: faker.date.past().toISOString(),
-    numberOfEmployees: faker.number.int({ min: 1, max: 100 }),
-    raisedCapital: faker.number.float({ min: 10000, max: 100000 }).toLocaleString('en-US', { style: 'currency',currency: 'USD',}),
-    turnover: faker.number.float({ min: 10000, max: 100000 }).toLocaleString('en-US', { style: 'currency',currency: 'USD',}),
-    netProfit: faker.number.float({ min: 10000, max: 100000 }).toLocaleString('en-US', { style: 'currency',currency: 'USD',}),
+    numberOfEmployees: faker.datatype.number({ min: 1, max: 100 }),
+    raisedCapital: formatCurrency(faker.datatype.float({ min: 10000, max: 100000 })),
+    turnover: formatCurrency(faker.datatype.float({ min: 10000, max: 100000 })),
+    netProfit: formatCurrency(faker.datatype.float({ min: 10000, max: 100000 })),
     contactNumber: faker.phone.number(),
     contactEmail: faker.internet.email(),
     companyWebsite: faker.internet.url(),
-    loanAmount: faker.number.float({ min: 10000, max: 100000 }).toLocaleString('en-US', { style: 'currency',currency: 'USD',}),
-    loanInterest: faker.number.float({ min: 0.01, max: 0.1 }).toLocaleString('en-US', { style: 'percent',}),
+    loanAmount: formatCurrency(faker.datatype.float({ min: 10000, max: 100000 })),
+    loanInterest: faker.datatype.float({ min: 0.01, max: 0.1 }).toLocaleString('en-US', { style: 'percent' }),
     accountStatus: faker.helpers.arrayElement(['Active', 'Inactive']),
   }));
+};
 
 store.dispatch({ type: 'ADD_COMPANY', payload: createCompanyData(1000) });
 store.dispatch({ type: 'SELECTED_ROW', payload: store.getState().companyData[0] });
@@ -158,14 +162,14 @@ export interface CompanyType {
   address: string;
   registrationDate: string;
   numberOfEmployees: number;
-  raisedCapital: number;
-  turnover: number;
-  netProfit: number;
+  raisedCapital: string;
+  turnover: string;
+  netProfit: string;
   contactNumber: string;
   contactEmail: string;
   companyWebsite: string;
-  loanAmount: number;
-  loanInterest: number;
+  loanAmount: string;
+  loanInterest: string;
   accountStatus: string;
 }
 

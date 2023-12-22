@@ -6,12 +6,17 @@ import {
   type MRT_SortingState,
   type MRT_Virtualizer,
 } from 'mantine-react-table';
-import { AppState, CompanyType } from '../store';
-import { useDispatch, useSelector } from 'react-redux';
+import { CompanyType } from '../store';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   tableData: CompanyType[];
   tableConfig: MRT_ColumnDef<CompanyType>[];
+}
+
+// Define the type for the row object
+interface RowType {
+  original: any; // Update this with the appropriate type for the 'original' property
 }
 
 const MantineTable: React.FC<Props> = ({ tableData, tableConfig }) => {
@@ -23,9 +28,7 @@ const MantineTable: React.FC<Props> = ({ tableData, tableConfig }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [sorting, setSorting] = useState<MRT_SortingState>([]);
   const dispatch = useDispatch();
-  const chartDataSelector = useSelector((state: AppState) => state.selectedRow);
-  const [newChartData, setChartData] = useState(chartDataSelector);
-
+  
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setData(tableData);
@@ -60,8 +63,8 @@ const MantineTable: React.FC<Props> = ({ tableData, tableConfig }) => {
     rowVirtualizerProps: { overscan: 5 },
     columnVirtualizerProps: { overscan: 2 },
     initialState: { density: 'xs' },
-    mantineTableBodyRowProps: ({ row }) => ({
-      onClick: (event) => {
+    mantineTableBodyRowProps: ({ row }: { row: RowType }) => ({
+      onClick: (event: React.MouseEvent<HTMLTableRowElement>) => {
         dispatch({ type: 'SELECTED_ROW', payload: row.original })
       },
       sx: {
