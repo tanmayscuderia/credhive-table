@@ -8,6 +8,7 @@ import {
 } from 'mantine-react-table';
 import { CompanyType } from '../store';
 import { useDispatch } from 'react-redux';
+import './mantitable.css';
 
 interface Props {
   tableData: CompanyType[];
